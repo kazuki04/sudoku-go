@@ -70,6 +70,21 @@ func verify(b Board) bool {
 			return false
 		}
 	}
+
+	// check 3x3
+	for i := 0; i < 9; i += 3 {
+		for j := 0; j < 9; j += 3 {
+			var c [10]int
+			for row := i; row < i+3; row++ {
+				for col := j; col < j+3; col++ {
+					c[b[row][col]]++
+				}
+			}
+			if duplicated(c) {
+				return false
+			}
+		}
+	}
 	return true
 }
 
