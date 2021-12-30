@@ -88,6 +88,53 @@ func verify(b Board) bool {
 	return true
 }
 
+// solved is the function judge whether the sudoku question is solved.
+// It is solved when verify return true and all squares are filled.
+// for loop in this function checks whether all squares are filled.
+func solved(b Board) bool {
+	if !verify(b) {
+		return false
+	}
+	for i := 0; i < 9; i++ {
+		for j := 0; j < 9; j++ {
+			if b[i][j] == 0 {
+				return false
+			}
+		}
+	}
+	return true
+}
+
+// backtrack is the algorithm.
+// the argument b is passed by reference because of recursive call.
+// As a result, squares of the board will be updated every time recursive call.
+func backtrack(b *Board) bool {
+	if solved(*b) {
+		return true
+	}
+
+	for i := 0; i < 9; i++ {
+		for j := 0; j < 9; j++ {
+			if b[i][j] == 0 {
+				// if the square is 0 try whether the number is appropriate.
+				// c is candidate.
+				for c := 9; c >= 1; c-- {
+					b[i][j] = c
+					if verify(*b) {
+						// if the verify return true explore deeply
+						if backtrack(b) {
+							return true
+						}
+					}
+					b[i][j] = 0
+				}
+				return false
+			}
+		}
+	}
+	return false
+}
+
 func main() {
 	b := Board{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0},
