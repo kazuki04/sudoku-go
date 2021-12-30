@@ -31,6 +31,8 @@ func prettify(b Board) string {
 	return buf.String()
 }
 
+// duplicated checks the number of appearances.
+// If number of appearances exceeds two return false.
 func duplicated(c [10]int) bool {
 	// k is number value
 	for k, v := range c {
@@ -46,6 +48,7 @@ func duplicated(c [10]int) bool {
 	return false
 }
 
+// verify checks the three paterrens that rows, lines and 3x3.
 func verify(b Board) bool {
 	// check rows
 	for i := 0; i < 9; i++ {
